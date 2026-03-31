@@ -4,7 +4,7 @@ Code for reproducing and extending the results in:
 
 > **Real-World Benchmarking and Validation of Foundation Model Transformers for Endometrial Cancer Subtyping from Histopathology**
 >
-> Wagner VM, Cosgrove CM, Chen SJ, Griffin DT, Suster MI, Goodfellow MJ, Baiocchi JG.
+> Vincent M. Wagner, Casey M. Cosgrove, Stephanie J. Chen, Daniel T. Griffin, Megan I. Samuelson, Michael J. Goodheart, Jesus Gonzalez-Bosquet
 >
 > Preprint: [https://doi.org/10.21203/rs.3.rs-7689962/v1](https://doi.org/10.21203/rs.3.rs-7689962/v1)
 
@@ -318,8 +318,8 @@ If you use this code or find our work useful, please cite:
   title   = {Real-World Benchmarking and Validation of Foundation Model Transformers
              for Endometrial Cancer Subtyping from Histopathology},
   author  = {Wagner, Vincent M. and Cosgrove, Casey M. and Chen, Stephanie J.
-             and Griffin, Daniel T. and Suster, Martina I.
-             and Goodfellow, Michael J. and Baiocchi, John G.},
+             and Griffin, Daniel T. and Samuelson, Megan I.
+             and Goodheart, Michael J. and Gonzalez-Bosquet, Jesus},
   year    = {2025},
   doi     = {10.21203/rs.3.rs-7689962/v1},
   note    = {Under review at npj Precision Oncology}
