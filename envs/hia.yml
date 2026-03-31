@@ -1,0 +1,26 @@
+name: ec-hia
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pytorch
+  - torchvision
+  - pip:
+      - numpy
+      - pandas
+      - scikit-learn
+      - tqdm
+      - h5py
+      - Pillow
+      - opencv-python
+      - matplotlib
+      - seaborn
+      - efficientnet_pytorch
+      - fastai
+      - scipy
+      - ipywidgets
+      - openpyxl

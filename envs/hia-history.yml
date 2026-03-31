@@ -1,0 +1,24 @@
+name: HIA
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy
+  - pandas
+  - opencv
+  - pytorch
+  - tqdm
+  - pillow
+  - pytorch::torchvision
+  - setuptools
+  - conda-forge::vit-pytorch
+  - ipywidgets
+  - conda-forge::efficientnet-pytorch
+  - anaconda::scikit-learn
+  - conda-forge::matplotlib
+  - anaconda::seaborn
+  - anaconda::h5py
+  - fastai
+  - openpyxl
+  - future
+prefix: /home/bizon/anaconda3/envs/HIA

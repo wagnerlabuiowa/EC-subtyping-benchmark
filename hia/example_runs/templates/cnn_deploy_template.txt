@@ -1,0 +1,34 @@
+{
+    "projectDetails": "<PROJECT_NAME>, <DATE>, <ARCHITECTURE> Deploy. SUBTYPE.",
+    "dataDir_train": [""],
+    "dataDir_test": ["<PATH_TO_EXTERNAL_COHORT>"],
+
+    "targetLabels": ["Subtype"],
+    "trainFull": true,
+    "numPatientToUse": "ALL",
+
+    "maxNumBlocks": 4000,
+    "minNumBlocks": 300,
+
+    "numHighScoreTiles": 100,
+    "numHighScorePatients": 10,
+
+    "epochs": 0,
+    "batchSize": 256,
+    "freezeRatio": 0.5,
+    "repeatExperiment": 1,
+
+    "seed": 1,
+    "k": 1,
+
+    "useClassicModel": true,
+    "modelName": "densenet",
+    "opt": "adam",
+    "lr": 0.0002,
+    "reg": 0.00001,
+    "gpuNo": "0",
+
+    "earlyStop": "False",
+    "minEpochToTrain": 0,
+    "patience": 0
+}

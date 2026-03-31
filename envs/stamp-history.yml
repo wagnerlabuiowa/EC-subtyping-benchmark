@@ -1,0 +1,16 @@
+name: STAMP
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - libstdcxx-ng=12
+  - openslide
+  - openslide-python
+  - antlr4-python3-runtime=4.9
+  - seaborn
+  - psutil
+  - statsmodels
+  - requests
+  - numpy=1.26
+  - opencv
+prefix: /home/bizon/anaconda3/envs/STAMP

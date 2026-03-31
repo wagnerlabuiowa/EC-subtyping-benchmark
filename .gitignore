@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Model weights and checkpoints
+*.pth
+*.pt
+*.pkl
+*.h5
+*.hdf5
+*.onnx
+*.sif
+*.bin
+
+# Downloaded model weights (downloaded via `stamp setup` or HuggingFace)
+stamp/resources/*/
+stamp/resources/*.pth
+
+# Data and outputs
+output_dir/
+features_dir/
+cache_dir/
+results/
+plots/
+stamp/tiatoolbox/output/
+stamp/tiatoolbox/plots/
+*.svs
+*.ndpi
+*.tiff
+*.tif
+*.mrxs
+
+# HIA output directories
+hia/3Fold_Crossval/
+hia/5Fold_Crossval/
+hia/Old_Runs/
+
+# Secrets and environment
+.env
+*.key
+credentials.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+logfile_*

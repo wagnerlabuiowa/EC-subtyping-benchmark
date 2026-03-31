@@ -1,0 +1,19 @@
+name: ec-tiahover
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - openslide
+  - openslide-python
+  - pytorch
+  - torchvision
+  - pip:
+      - -e .
+      - tiatoolbox
+      - scikit-image
+      - joblib
+      - seaborn

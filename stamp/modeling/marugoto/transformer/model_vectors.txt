@@ -1,0 +1,78 @@
+#### UNI ####
+model = timm.create_model(
+    "vit_large_patch16_224", img_size=224, patch_size=16, init_values=1e-5, num_classes=0, dynamic_img_size=True
+)
+model.load_state_dict(torch.load(os.path.join(local_dir, "pytorch_model.bin"), map_location="cpu"), strict=True)
+transform = transforms.Compose(
+    [
+        transforms.Resize(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
+    ]
+)
+
+from PIL import Image
+image = Image.open("uni.jpg")
+image = transform(image).unsqueeze(dim=0) # Image (torch.Tensor) with shape [1, 3, 224, 224] following image resizing and normalization (ImageNet parameters)
+with torch.inference_mode():
+    feature_emb = model(image) # Extracted features (torch.Tensor) with shape [1,1024]
+
+
+#### VIRCHOW2 ####
+image = transforms(image).unsqueeze(0)  # size: 1 x 3 x 224 x 224
+
+output = model(image)  # size: 1 x 261 x 1280
+
+class_token = output[:, 0]    # size: 1 x 1280
+patch_tokens = output[:, 5:]  # size: 1 x 256 x 1280, tokens 1-4 are register tokens so we ignore those
+
+# concatenate class token and average pool of patch tokens
+embedding = torch.cat([class_token, patch_tokens.mean(1)], dim=-1)  # size: 1 x 2560
+
+#### H-optimus-0 ####
+
+model = timm.create_model(
+    "hf-hub:bioptimus/H-optimus-0", pretrained=True, init_values=1e-5, dynamic_img_size=False
+)
+model.to("cuda")
+model.eval()
+
+transform = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize(
+        mean=(0.707223, 0.578729, 0.703617), 
+        std=(0.211883, 0.230117, 0.177517)
+    ),
+])
+
+input = torch.rand(3, 224, 224)
+input = transforms.ToPILImage()(input)
+
+# We recommend using mixed precision for faster inference.
+with torch.autocast(device_type="cuda", dtype=torch.float16):
+    with torch.inference_mode():
+        features = model(transform(input).unsqueeze(0).to("cuda"))
+
+assert features.shape == (1, 1536)
+
+#### Prov-GigaPath ####
+
+tile_encoder = timm.create_model("hf_hub:prov-gigapath/prov-gigapath", pretrained=True)
+
+transform = transforms.Compose(
+    [
+        transforms.Resize(256, interpolation=transforms.InterpolationMode.BICUBIC),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
+    ]
+)
+
+img_path = "images/prov_normal_000_1.png"
+sample_input = transform(Image.open(img_path).convert("RGB")).unsqueeze(0)
+
+tile_encoder.eval()
+with torch.no_grad():
+    output = tile_encoder(sample_input).squeeze()
+
+

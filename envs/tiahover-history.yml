@@ -1,0 +1,7 @@
+name: TIAHOVER
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - openpyxl
+prefix: /home/bizon/anaconda3/envs/TIAHOVER

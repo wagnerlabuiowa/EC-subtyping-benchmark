@@ -1,0 +1,68 @@
+# Main configuration file for STAMP.
+#
+# NOTE: you may use environment variables in this file, e.g. ${oc.env:STAMP_RESOURCES_DIR}.
+# The STAMP_RESOURCES_DIR environment variable is a special environment variable that, if not set,
+# will be set to the resources/ directory relative to where STAMP is installed.
+#
+# UPDATE ALL PATHS BELOW to match your local directory structure before running.
+
+# Define path shortcuts — update these two paths for your environment
+paths:
+  data: &data_path /path/to/your/data/          # directory containing clinical tables, slide tables, WSIs
+  work: &work_path /path/to/your/workdir/        # working directory for features, outputs, cache
+
+preprocessing:
+  output_dir: ${paths.work}/features_dir/
+  wsi_dir: ${paths.data}/WSI/
+  cache_dir: ${paths.work}/cache_dir/
+  microns: [224]   # 20x (112), 10x (224), 5x (448)
+  norm: false
+  feat_extractor: ctp  # Options: ctp, uni, uni2, virchow2, h-optimus-0, prov-gigapath, ViT-B16
+  del_slide: false
+  cache: true
+  only_feature_extraction: false
+  cores: 16
+  device: cuda:0
+
+modeling:
+  clini_table: ${paths.data}/CLINI.xlsx
+  slide_table: ${paths.data}/SLIDE.xlsx
+  feature_dir: ${paths.work}/features_dir/STAMP_raw_<encoder>_<cohort>/
+  output_dir: ${paths.work}/output_dir/<cohort>_Crossval/<encoder>/<run_name>/
+  checkpoint:
+  target_label: Subtype
+  categories: []   # leave empty to auto-infer from target_label column
+  cat_labels: []
+  cont_labels: []
+  model_type: clam_mb   # Options: transmil, clam_sb, clam_mb
+  loss_type: ce          # Options: ce, focal, focal_multiclass
+  n_splits: 5
+  use_coords: false
+  bag_size: 512
+
+  # Deployment
+  model_path: ${paths.work}/output_dir/<cohort>_Crossval/<encoder>/<run_name>/fold-0/export.pkl
+  d_clini_table: ${paths.data}/external_CLINI.xlsx
+  d_slide_table: ${paths.data}/external_SLIDE.csv
+  d_output_dir: ${paths.work}/output_dir/<cohort>_Deploy/<encoder>/<run_name>/
+  d_feature_dir: ${paths.work}/features_dir/STAMP_raw_<encoder>_<external_cohort>/
+
+  statistics:
+    pred_csvs:  # list paths to prediction CSVs (one per fold)
+      # - /path/to/deploy_f0/patient-preds.csv
+      # - /path/to/deploy_f1/patient-preds.csv
+      # - /path/to/deploy_f2/patient-preds.csv
+      # - /path/to/deploy_f3/patient-preds.csv
+      # - /path/to/deploy_f4/patient-preds.csv
+    target_label: Subtype
+    true_class:
+    output_dir: ${paths.work}/output_dir/deploy_stats/
+
+heatmaps:
+  slide_name: []  # list of slide identifiers
+  feature_dir: ${paths.work}/features_dir/STAMP_raw_<encoder>_<cohort>/
+  wsi_dir: ${paths.data}/WSI/
+  model_path: ${paths.work}/output_dir/<cohort>_Crossval/<encoder>/<run_name>/fold-0/export.pkl
+  output_dir: ${paths.work}/output_dir/Heatmaps/<encoder>_<aggregator>/
+  n_toptiles: 8
+  overview: True

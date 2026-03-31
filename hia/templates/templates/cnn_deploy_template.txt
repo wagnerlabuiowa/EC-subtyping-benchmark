@@ -1,0 +1,33 @@
+{
+    "projectDetails": "PROJECT_NAME, DATE, MODEL Classifier, TARGET, DEPLOY_FOLDX",
+    "dataDir_train": ["/path/to/TRAIN_COHORT_ROOT"],
+    "dataDir_test": ["/path/to/EXTERNAL_TEST_COHORT_ROOT"],
+
+    "targetLabels": ["Subtype"],
+    "trainFull": false,
+    "numPatientToUse": "ALL",
+
+    "maxNumBlocks": 4000,
+    "minNumBlocks": 300,
+
+    "numHighScoreTiles": 100,
+    "numHighScorePatients": 10,
+
+    "epochs": 20,
+    "batchSize": 256,
+    "freezeRatio": 0.5,
+    "repeatExperiment": 1,
+
+    "seed": 1,
+    "k": 5,
+
+    "modelName": "densenet",
+    "opt": "adam",
+    "lr": 0.0002,
+    "reg": 0.00001,
+    "gpuNo": 0,
+
+    "earlyStop": true,
+    "minEpochToTrain": 5,
+    "patience": 3
+}

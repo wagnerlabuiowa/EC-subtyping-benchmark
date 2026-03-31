@@ -1,0 +1,19 @@
+name: ec-stamp
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - libstdcxx-ng=12
+  - openslide
+  - openslide-python
+  - pytorch
+  - torchvision
+  - pip:
+      - -e .
+      - scipy
+      - seaborn
+      - statsmodels
